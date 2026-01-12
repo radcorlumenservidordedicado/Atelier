@@ -406,6 +406,87 @@
     </div>
   </div>
 
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
+        `;
+      }
+      cont.innerHTML = `
+        <h3>Guía rápida de conexión - ${app}</h3>
+        ${pasos}
+      <p>Fallos de Red o Destinatario Ocupado:Reintentar mas tarde. Sujeto a disponibilidad horaria y red de conexion estable.</p>
+       <p>🛡️ Términos:No se conserva ni comparte contenido ni datos. Al finalizar, vuelve a estado base.Bajo derecho de reserva de datos.</p>
+        ${acciones}
+      `;
+    }
+
+    // Mantengo tu función original para el botón “Ingresar VideoLlamada Timbre”
+    function ingresarVideoChat() {
+      window.location.href = "https://call.whatsapp.com/video/U5uEJY6HGCJPCnWawyqlna";
+      cerrarTodo();
+    }
+  </script>
+</head>
+<body>
+
+  <div class="panel">
+    <div class="camara"></div>
+
+    <div class="pantalla">
+      <h1>TIMBRE VIRTUAL</h1>
+      <h2>Distribuido por Radiante Providencia </h2>
+    </div>
+    <!-- creditos -->
+    
+      <h5>Licencia MIT Copyright (c) 2026 Radiante Corazón Luminico. Basado en el trabajo de Gabriela para Radiante Corazon Luminico, mencion bajo derecho de autor.</h5>
+    <!-- See LICENSE for attribution rules. Cualquiera copia debe creditarse como "Basado en trabajo de Gabriela para Radiante Corazon Luminico" previo aviso por email al autor original anterior Radiante Corazon Luminico-->
+          
+
+    <div class="botones">
+      <a class="btn activo" onclick="tocarTimbre4(); abrirModal()">
+        Departamento 4
+        <span class="subtexto"></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Pop-up inactivos -->
+  <div id="popup-dept4" class="popup" onclick="cerrarTodo()">
+    <div class="popup-contenido" onclick="event.stopPropagation()">
+      unidad Familiar dpto 4: Estado Timbre Virtual inactivo.<br><br>
+      Tocar timbre convencional.
+      <div class="popup-btn" onclick="cerrarTodo()">Aceptar</div>
+    </div>
+  </div>
+
+  <!-- Modal principal: seleccionar destino -->
+  <div id="modal" class="modal" onclick="cerrarTodo()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <h3>Seleccionar Departamento</h3>
+      <!-- D4: suena SFX y muestra inactivo -->
+      <a class="modal-btn" onclick="cerrarTodo()">4</a>
+      <!-- D4B: abre selector de mensajería -->
+      <a class="modal-btn" onclick="tocarTimbre4(); cerrarTodo(); abrirMensajeria()">4B (subuf)</a>
+      <div class="cerrar" onclick="cerrarTodo()">Cancelar</div>
+    </div>
+    
+  </div>
+
+  <!-- Modal: selección de mensajería (WhatsApp / Telegram / Email) -->
+  <div id="modal-mensajeria" class="modal" onclick="cerrarTodo()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <h3>Seleccionar mensajería</h3>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Briar')">Briar</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('whatsapp')">Whatsapp</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Telegram')">Telegram</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Email')">Email</a>
+      <div class="cerrar" onclick="cerrarTodo()">Cancelar</div>
+    </div>
+  </div>
+
   
      
       
