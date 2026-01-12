@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Radiante Providencia con Corazon Luminico servicios y productos digitales</title>
+  <style>
+    body {
+      background: linear-gradient(#b0b0b0, #d0d0d0);
+      background-attachment: fixed;
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      margin: 0;
+      padding: 15px 10px;
+      display: flex;
+      justify-content: center;
+      min-height: 40vh;
+      box-sizing: border-box;
+    }
+
+    .panel {
+      background: linear-gradient(145deg, #1e1e1e, #2d2d2d);
+      border: 8px solid #444;
+      border-radius: 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7), inset 0 0 20px rgba(0,100,255,0.15);
+      padding: 12px 10px;
+      width: 75%;
+      max-width: 300px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+    }
+
+    .camara {
+      width: 35px;
+      height: 35px;
+      background: radial-gradient(circle at 30% 30%, #000 20%, #333 60%, #111 100%);
+      border: 5px solid #333;
+      border-radius: 50%;
+      margin: 8px auto -8px;
+      position: relative;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.6), inset 0 0 12px rgba(0,170,255,0.3);
+    }
+
+    .camara::after {
+      content: '';
+      width: 12px;
+      height: 12px;
+      background: radial-gradient(circle, #00ccff, #0088ff);
+      border-radius: 50%;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      box-shadow: 0 0 10px #00aaff;
+    }
+
+    .pantalla {
+      background: #000;
+      border: 3px solid #333;
+      border-radius: 12px;
+      padding: 8px;
+      margin: 8px 0 12px;
+      width: 70%;
+      box-shadow: inset 0 0 18px rgba(0,170,255,0.3);
+    }
+
+    .pantalla h1 {
+      font-size: 20px;
+      margin: 3px 22px 7px;
+      color: #00ccff;
+      text-align: center;
+      text-shadow: 0 0 10px #00aaff;
+      align-items: center;
+    }
+
+    .pantalla h2 {
+      font-size: 12px;
+      margin: 4px 0 0;
+      opacity: 0.8;
+      color: #c9f1ff;
+      text-align: center;
+      align-items: center;
+    }
+  .pantalla h4 {
+      font-size: 12px;
+      margin: 4px 0 0;
+      opacity: 0.8;
+      color: #c9f1ff;
+      text-align: center;
+      align-items: center;
+    }
+
+    .botones {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      padding: 5px 0 10px;
+      background-color: #2d2d2d;
+      border-radius: 20px;
+      text-align: center;
+      align-items: center;
+    }
+
+    .btn {
+      padding: 10px;
+      background: linear-gradient(#333, #222);
+      border: 2px solid #666;
+      border-radius: 12px;
+      color: #999;
+      font-size: 18px;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .btn .subtexto {
+      font-size: 13px;
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    .btn.activo {
+      background: linear-gradient(#444, #333);
+      border-color: #00aaff;
+      color: #ffffff;
+      box-shadow: 0 0 25px rgba(0,170,255,0.7);
+      animation: brilloActivo 4s infinite ease-in-out;
+    }
+
+    @keyframes brilloActivo {
+      0%, 100% { box-shadow: 0 0 20px rgba(0,170,255,0.5); }
+      50% { box-shadow: 0 0 35px rgba(0,170,255,0.9); }
+    }
+
+    .popup, .modal, .modal-guia {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.95);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .popup.abierto, .modal.abierto, .modal-guia.abierto { display: flex; }
+
+    .popup-contenido, .modal-contenido, .modal-guia-contenido {
+      background: #1e1e1e;
+      border: 3px solid #00aaff;
+      border-radius: 18px;
+      padding: 25px 20px;
+      width: 85%;
+      max-width: 320px;
+      text-align: center;
+      box-shadow: 0 0 35px rgba(0,170,255,0.7);
+      color: #fff;
+    }
+
+    .popup-btn, .btn-ingresar {
+      margin-top: 20px;
+      padding: 12px 30px;
+      background: #00aaff;
+      border-radius: 12px;
+      cursor: pointer;
+      color: #fff;
+      border: none;
+    }
+
+    .modal-contenido h3, .modal-guia-contenido h3 {
+      color: #00aaff;
+      font-size: 22px;
+      margin: 0 0 20px 0;
+    }
+
+    .modal-btn {
+      display: block;
+      width: 90%;
+      padding: 16px;
+      margin: 12px auto;
+      background: #333;
+      border: 2px solid #555;
+      border-radius: 12px;
+      font-size: 21px;
+      color: #fff;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    .modal-btn:hover {
+      background: #00aaff;
+      transform: scale(1.03);
+    }
+
+    .modal-guia-contenido p {
+      color: #fff;
+      font-size: 14px;
+      margin: 8px 0;
+      text-align: left;
+    }
+
+    .cerrar {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #ccc;
+      cursor: pointer;
+    }
+
+    / Botones compactos dentro de la guía /
+    .acciones {
+      margin-top: 15px;
+    }
+    .acciones .btn-accion {
+      display: inline-block;
+      margin: 6px;
+      padding: 10px 14px;
+      border-radius: 10px;
+      background: #00aaff;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .acciones .btn-accion.secundario {
+      background: #333;
+      border: 2px solid #555;
+    }
+  </style>
+
+  <script>
+    // SFX local para el timbre
+    let sonidoTimbre;
+    window.addEventListener('DOMContentLoaded', () => {
+      sonidoTimbre = new Audio('audios/timbre3chord1.mp3'); // colocar timbre.mp3 junto al HTML
+    });
+
+    function mostrarInactivo() {
+      document.getElementById("popup-dept4").classList.add("abierto");
+    }
+
+    function cerrarTodo() {
+      document.querySelectorAll(".popup, .modal, .modal-guia").forEach(el => el.classList.remove("abierto"));
+    }
+
+    function abrirModal() {
+      document.getElementById("modal").classList.add("abierto");
+    }
+
+    // Acción Departamento 4: suena SFX y muestra popup de inactivo (tu lógica)
+    function tocarTimbre4() {
+      if (sonidoTimbre) {
+        sonidoTimbre.currentTime = 0;
+        sonidoTimbre.play().catch(() => {
+          // En algunos navegadores, el audio requiere interacción directa;
+          // el click acá ya cuenta como interacción, pero por si falla, no cortamos la lógica.
+        });
+      }
+      mostrarInactivo();
+    }
+
+    // Abrir selector de mensajería para 4B
+    function abrirMensajeria() {
+      document.getElementById("modal-mensajeria").classList.add("abierto");
+    }
+
+    // Guía dinámica según la app elegida
+    function abrirGuia(app) {
+      const guia = document.getElementById("modal-guia");
+      const cont = guia.querySelector(".modal-guia-contenido");
+      guia.classList.add("abierto");
+
+      let pasos = "";
+      let acciones = "";
+      if (app === "Briar") {
+        pasos = `
+          <p>✅ Paso 1: instalar APP Briar</p>
+          <p>✅ Paso 2: Registrarse gratis solo usuario y password. IMPORTANTE: Esta APP conecta con o sin internet.</p>
+          <p>✅ Paso 3: Conectar a un servidor local, proveedor o gratuito.</p>
+          <p>✅ Paso 4: Buscar contacto cercano o a distancia con(+)(intercambio de link de conexion o qr entre contactos que proporciona la misma App para autenticación) "</p>
+          <p>✅ Pado 5: Agregar contacto " 4B "</p>
+        `;
+        acciones = `
+          <div class="acciones">
+            <a class="btn-accion" href="https://briarproject.org/download/" target="_blank">Descargar Briar</a>
+            <a class="btn-accion secundario" onclick="cerrarTodo()">Cerrar</a>
+          </div>
+        `;
+      } else if (app === "whatsapp") {
+        pasos = `
+          <p>✅ Paso 1: conexion wifi activa o datos moviles con acceso a internet.</p>
+          <p>✅ Paso 2: Abrí APP o navegador con whatsapp Web.</p>
+          <p>✅ Paso 3: Activar Camara y Microfono. </p>
+          <p>✅ Paso 4: Click en UNIRME y aguardar. Demora estimada de 2 a 10 minutos.</p>
+        `;
+        // Colocar tu @usuario o link si lo tenés
+        acciones = `
+          <div class="acciones">
+            <a class="btn-accion" href="https://call.whatsapp.com/video/lFsbUXPR9W8KgwXSwOvXBg" target="_blank">Ingresar VideoLLamada</a>
+            <a class="btn-accion secundario" onclick="cerrarTodo()">Cerrar</a>
+          </div>
+        `;
+        } else if (app === "Telegram") {
+        pasos = `
+          <p>✅ Paso 1: conexion wifi activa o datos moviles con acceso a internet.</p>
+          <p>✅ Paso 2: Abrí APP o navegador con Telegram Web.</p>
+          <p>✅ Paso 3:  Activar Camara y Microfono. Anunciate y Click en UNIRSE.</p>
+          <p>✅ Paso 4: Aguardar a ser atendido/a. Demira estimada de 2 a 10 minutos.Horarios sujetos a disponibilidad.</p>
+        `;
+        acciones = `
+          <div class="acciones">
+            <a class="btn-accion" href="https://t.me/call/_xFCdOR5IS9nQz3_gjBwsVlTsEA" target="_blank">Ingresar a Telegram</a>
+            <a class="btn-accion secundario" onclick="cerrarTodo()">Cerrar</a>
+          </div>
+        `;
+      } else if (app === "Email") {
+        pasos = `
+          <p>✅ Paso 1: Conectate a Internet.</p>
+          <p>✅ Paso 2: Abrí tu cliente de correo.</p>
+          <p>✅ Paso 3: Escribí a <strong>departamento4subufb@gmail.com</strong> indicando motivo y nombre.</p>
+          <p>✅ Paso 4: Si es urgente, pedí confirmación breve y disponibilidad horaria</p>
+        `;
+        acciones = `
+          <div class="acciones">
+            <a class="btn-accion" href="mailto:departamento4subufb@gmail.com?subject=Visitante%20llamado%20Timbre%20Virtual&body=Hola%2C%20estoy%20en%20tu%20puerta%20departamento4.%20Mi%20nombre%20es%20...%20Motivo:%20." target="_blank">Enviar Email</a>
+            <a class="btn-accion secundario" onclick="cerrarTodo()">Cerrar</a>
+          </div>
+        `;
+      }
+      cont.innerHTML = `
+        <h3>Guía rápida de conexión - ${app}</h3>
+        ${pasos}
+      <p>Fallos de Red o Destinatario Ocupado:Reintentar mas tarde. Sujeto a disponibilidad horaria y red de conexion estable.</p>
+       <p>🛡️ Términos:No se conserva ni comparte contenido ni datos. Al finalizar, vuelve a estado base.Bajo derecho de reserva de datos.</p>
+        ${acciones}
+      `;
+    }
+
+    // Mantengo tu función original para el botón “Ingresar VideoLlamada Timbre”
+    function ingresarVideoChat() {
+      window.location.href = "https://call.whatsapp.com/video/U5uEJY6HGCJPCnWawyqlna";
+      cerrarTodo();
+    }
+  </script>
+</head>
+<body>
+
+  <div class="panel">
+    <div class="camara"></div>
+
+    <div class="pantalla">
+      <h1>TIMBRE VIRTUAL</h1>
+      <h2>Distribuido por Radiante Providencia </h2>
+    </div>
+    <!-- creditos -->
+    
+      <h5>Licencia MIT Copyright (c) 2026 Radiante Corazón Luminico. Basado en el trabajo de Gabriela para Radiante Corazon Luminico, mencion bajo derecho de autor.</h5>
+    <!-- See LICENSE for attribution rules. Cualquiera copia debe creditarse como "Basado en trabajo de Gabriela para Radiante Corazon Luminico" previo aviso por email al autor original anterior Radiante Corazon Luminico-->
+          
+
+    <div class="botones">
+      <a class="btn activo" onclick="tocarTimbre4(); abrirModal()">
+        Departamento 4
+        <span class="subtexto"></span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Pop-up inactivos -->
+  <div id="popup-dept4" class="popup" onclick="cerrarTodo()">
+    <div class="popup-contenido" onclick="event.stopPropagation()">
+      unidad Familiar dpto 4: Estado Timbre Virtual inactivo.<br><br>
+      Tocar timbre convencional.
+      <div class="popup-btn" onclick="cerrarTodo()">Aceptar</div>
+    </div>
+  </div>
+
+  <!-- Modal principal: seleccionar destino -->
+  <div id="modal" class="modal" onclick="cerrarTodo()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <h3>Seleccionar Departamento</h3>
+      <!-- D4: suena SFX y muestra inactivo -->
+      <a class="modal-btn" onclick="cerrarTodo()">4</a>
+      <!-- D4B: abre selector de mensajería -->
+      <a class="modal-btn" onclick="tocarTimbre4(); cerrarTodo(); abrirMensajeria()">4B (subuf)</a>
+      <div class="cerrar" onclick="cerrarTodo()">Cancelar</div>
+    </div>
+    
+  </div>
+
+  <!-- Modal: selección de mensajería (WhatsApp / Telegram / Email) -->
+  <div id="modal-mensajeria" class="modal" onclick="cerrarTodo()">
+    <div class="modal-contenido" onclick="event.stopPropagation()">
+      <h3>Seleccionar mensajería</h3>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Briar')">Briar</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('whatsapp')">Whatsapp</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Telegram')">Telegram</a>
+      <a class="modal-btn" onclick="tocarTimbre4(); abrirGuia('Email')">Email</a>
+      <div class="cerrar" onclick="cerrarTodo()">Cancelar</div>
+    </div>
+  </div>
+
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
